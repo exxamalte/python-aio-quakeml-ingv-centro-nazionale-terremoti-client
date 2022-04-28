@@ -24,7 +24,6 @@ class IngvCentroNazionaleTerremotiQuakeMLFeedManager(QuakeMLFeedManagerBase):
         feed = IngvCentroNazionaleTerremotiQuakeMLFeed(
             websession,
             coordinates,
-            "URL",
             filter_radius=filter_radius,
             filter_minimum_magnitude=filter_minimum_magnitude,
         )

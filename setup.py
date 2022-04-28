@@ -5,11 +5,13 @@ from setuptools import find_packages, setup
 NAME = "aio_quakeml_ingv_centro_nazionale_terremoti_client"
 AUTHOR = "Malte Franken"
 AUTHOR_EMAIL = "coding@subspace.de"
-DESCRIPTION = "An async INGV Centro Nazionale Terremoti (Earthquakes) QuakeML client library."
+DESCRIPTION = (
+    "An async INGV Centro Nazionale Terremoti (Earthquakes) QuakeML client library."
+)
 URL = "https://github.com/exxamalte/python-aio-quakeml-ingv-centro-nazionale-terremoti-client"
 
 REQUIRES = [
-    "aio_quakeml_client>=0.1",
+    "aio_quakeml_client>=0.3",
 ]
 
 

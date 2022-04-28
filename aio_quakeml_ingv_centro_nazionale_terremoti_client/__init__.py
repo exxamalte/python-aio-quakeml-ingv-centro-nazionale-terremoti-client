@@ -1,0 +1,1 @@
+"""aio_quakeml_ingv_centro_nazionale_terremoti_client library."""

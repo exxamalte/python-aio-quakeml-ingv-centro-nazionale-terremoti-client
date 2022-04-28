@@ -1,0 +1,6 @@
+[tool.black]
+target-version = ['py38', 'py39', 'py310']
+
+[tool.isort]
+profile = "black"
+src_paths = ["aio_quakeml_ingv_centro_nazionale_terremoti_client", "tests"]

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="US-ASCII" standalone="yes"?>
+<q:quakeml xmlns:q="http://quakeml.org/xmlns/quakeml/1.2" xmlns="http://quakeml.org/xmlns/bed/1.2" xmlns:ingv="http://webservices.ingv.it/fdsnws/event/1">
+  <eventParameters publicID="smi:webservices.ingv.it/fdsnws/event/1/query">
+    <event publicID="smi:webservices.ingv.it/fdsnws/event/1/query?eventId=30116321">
+      <type>earthquake</type>
+      <description>
+        <type>region name</type>
+        <text>4 km S Campotosto (AQ)</text>
+      </description>
+      <preferredMagnitudeID>smi:webservices.ingv.it/fdsnws/event/1/query?magnitudeId=108867501</preferredMagnitudeID>
+      <preferredOriginID>smi:webservices.ingv.it/fdsnws/event/1/query?originId=101595191</preferredOriginID>
+      <creationInfo>
+        <agencyID>INGV</agencyID>
+        <author>hew10_mole#MOD_EQASSEMBLE</author>
+        <creationTime>2022-03-01T22:54:13</creationTime>
+        <ingv:id_locator>411691</ingv:id_locator>
+      </creationInfo>
+      <magnitude publicID="smi:webservices.ingv.it/fdsnws/event/1/query?magnitudeId=108867501">
+        <stationCount>72</stationCount>
+        <originID>smi:webservices.ingv.it/fdsnws/event/1/query?originId=101595191</originID>
+        <type>ML</type>
+        <mag>
+          <value>2.6</value>
+          <uncertainty>0.2</uncertainty>
+        </mag>
+        <methodID>smi:webservices.ingv.it/fdsnws/event/1/query?methodId=1</methodID>
+        <creationInfo>
+          <agencyID>INGV</agencyID>
+          <author>Sala Sismica INGV-Roma</author>
+          <creationTime>2022-03-01T23:02:46</creationTime>
+        </creationInfo>
+      </magnitude>
+    </event>
+  </eventParameters>
+</q:quakeml>

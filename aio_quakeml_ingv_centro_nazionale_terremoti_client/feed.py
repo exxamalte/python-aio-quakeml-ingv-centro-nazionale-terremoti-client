@@ -33,6 +33,16 @@ class IngvCentroNazionaleTerremotiQuakeMLFeed(
         self._dynamic_filter_radius = filter_radius
         self._dynamic_filter_minimum_magnitude = filter_minimum_magnitude
 
+    def __repr__(self):
+        """Return string representation of this feed."""
+        return "<{}(home={}, url={}, radius={}, magnitude={})>".format(
+            self.__class__.__name__,
+            self._home_coordinates,
+            self._fetch_url(),
+            self._dynamic_filter_radius,
+            self._dynamic_filter_minimum_magnitude,
+        )
+
     def _new_entry(
         self, home_coordinates: Tuple[float, float], event: Event, global_data: Dict
     ) -> IngvCentroNazionaleTerremotiFeedQuakeMLEntry:
@@ -59,7 +69,7 @@ class IngvCentroNazionaleTerremotiQuakeMLFeed(
                     self._home_coordinates[1],
                     self._dynamic_filter_radius,
                 )
-            if self._dynamic_filter_radius:
+            if self._dynamic_filter_minimum_magnitude:
                 return URL_PATTERN_MAGNITUDE.format(
                     self._dynamic_filter_minimum_magnitude
                 )

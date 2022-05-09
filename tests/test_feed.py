@@ -80,45 +80,57 @@ async def test_update_ok(aresponses, event_loop):
         assert feed_entry.id_locator == "411691"
 
 
-# @pytest.mark.asyncio
-# async def test_update_ok_with_radius_filter(aresponses, event_loop):
-#     """Test updating feed is ok with categories filter."""
-#     home_coordinates = (-41.2, 174.7)
-#     aresponses.add(
-#         "www.gdacs.org",
-#         "/xml/rss.xml",
-#         "get",
-#         aresponses.Response(text=load_fixture("gdacs-1.xml"), status=200),
-#         match_querystring=True,
-#     )
-#
-#     async with aiohttp.ClientSession(loop=event_loop) as websession:
-#
-#         feed = IngvCentroNazionaleTerremotiQuakeMLFeed(websession, home_coordinates, filter_categories=["Drought"])
-#         assert (
-#             repr(feed) == "<IngvCentroNazionaleTerremotiQuakeMLFeed(home=(-41.2, 174.7), "
-#             "url=https://www.gdacs.org/xml/rss.xml, "
-#             "radius=None, magnitude=['Drought'])>"
-#         )
-#         status, entries = await feed.update()
-#         assert status == UPDATE_OK
-#         assert entries is not None
-#         assert len(entries) == 2
-#
-#         feed_entry = entries[0]
-#         assert feed_entry is not None
-#         assert (
-#             feed_entry.title == "Drought is on going in Bulgaria, " "Iraq, Iran, Turkey"
-#         )
-#         assert feed_entry.external_id == "DR1013682"
-#         assert feed_entry.coordinates[0] == pytest.approx(39.544)
-#         assert feed_entry.coordinates[1] == pytest.approx(31.926)
-#         assert round(abs(feed_entry.distance_to_home - 16880.3), 1) == 0
-#         assert repr(feed_entry) == "<GdacsFeedEntry(id=DR1013682)>"
-#
-#         feed_entry = entries[1]
-#         assert feed_entry is not None
-#         assert feed_entry.external_id == "DR1013588"
+@pytest.mark.asyncio
+async def test_update_ok_with_radius_filter(aresponses, event_loop):
+    """Test updating feed is ok with radius filter."""
+    home_coordinates = (42.0, 13.0)
+    async with aiohttp.ClientSession(loop=event_loop) as websession:
+
+        feed = IngvCentroNazionaleTerremotiQuakeMLFeed(
+            websession, home_coordinates, filter_radius=100.0
+        )
+        assert (
+            repr(feed) == "<IngvCentroNazionaleTerremotiQuakeMLFeed(home=(42.0, 13.0), "
+            "url=https://webservices.ingv.it/fdsnws/event/1/query?lat=42.0&lon=13.0&maxradiuskm=100.0, "
+            "radius=100.0, magnitude=None)>"
+        )
+
+
+@pytest.mark.asyncio
+async def test_update_ok_with_minimum_magnitude_filter(aresponses, event_loop):
+    """Test updating feed is ok with minimum magnitude filter."""
+    home_coordinates = (42.0, 13.0)
+    async with aiohttp.ClientSession(loop=event_loop) as websession:
+
+        feed = IngvCentroNazionaleTerremotiQuakeMLFeed(
+            websession, home_coordinates, filter_minimum_magnitude=3.0
+        )
+        assert (
+            repr(feed) == "<IngvCentroNazionaleTerremotiQuakeMLFeed(home=(42.0, 13.0), "
+            "url=https://webservices.ingv.it/fdsnws/event/1/query?minmag=3.0, "
+            "radius=None, magnitude=3.0)>"
+        )
+
+
+@pytest.mark.asyncio
+async def test_update_ok_with_radius_and_minimum_magnitude_filter(
+    aresponses, event_loop
+):
+    """Test updating feed is ok with radius and minimum magnitude filter."""
+    home_coordinates = (42.0, 13.0)
+    async with aiohttp.ClientSession(loop=event_loop) as websession:
+
+        feed = IngvCentroNazionaleTerremotiQuakeMLFeed(
+            websession,
+            home_coordinates,
+            filter_radius=100.0,
+            filter_minimum_magnitude=3.0,
+        )
+        assert (
+            repr(feed) == "<IngvCentroNazionaleTerremotiQuakeMLFeed(home=(42.0, 13.0), "
+            "url=https://webservices.ingv.it/fdsnws/event/1/query?lat=42.0&lon=13.0&maxradiuskm=100.0&minmag=3.0, "
+            "radius=100.0, magnitude=3.0)>"
+        )
 
 
 @pytest.mark.asyncio

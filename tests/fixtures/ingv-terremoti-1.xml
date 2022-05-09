@@ -79,5 +79,23 @@
         </creationInfo>
       </magnitude>
     </event>
+    <event publicID="smi:webservices.ingv.it/fdsnws/event/1/query?eventId=2">
+      <origin publicID="smi:webservices.ingv.it/fdsnws/event/1/query?originId=2">
+        <latitude>
+          <value>42.5218</value>
+        </latitude>
+        <longitude>
+          <value>13.3833</value>
+        </longitude>
+        <depth>
+          <value>14500</value>
+        </depth>
+      </origin>
+      <magnitude publicID="smi:webservices.ingv.it/fdsnws/event/1/query?magnitudeId=2">
+        <mag>
+          <value>1.6</value>
+        </mag>
+      </magnitude>
+    </event>
   </eventParameters>
 </q:quakeml>

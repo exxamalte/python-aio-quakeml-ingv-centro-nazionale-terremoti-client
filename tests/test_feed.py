@@ -34,7 +34,7 @@ async def test_update_ok(aresponses, event_loop):
         status, entries = await feed.update()
         assert status == UPDATE_OK
         assert entries is not None
-        assert len(entries) == 1
+        assert len(entries) == 2
 
         feed_entry = entries[0]
         assert feed_entry is not None
@@ -78,6 +78,11 @@ async def test_update_ok(aresponses, event_loop):
 
         assert feed_entry.attribution == "INGV"
         assert feed_entry.id_locator == "411691"
+
+        feed_entry = entries[1]
+        assert feed_entry is not None
+        assert feed_entry.attribution is None
+        assert feed_entry.id_locator is None
 
 
 @pytest.mark.asyncio

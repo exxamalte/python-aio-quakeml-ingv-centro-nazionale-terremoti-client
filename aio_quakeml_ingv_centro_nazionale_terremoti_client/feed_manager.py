@@ -1,4 +1,6 @@
 """INGV Centro Nazionale Terremoti (Earthquakes) feed manager."""
+from __future__ import annotations
+
 from typing import Awaitable, Callable, Tuple
 
 from aio_quakeml_client.feed_manager import QuakeMLFeedManagerBase
@@ -9,6 +11,8 @@ from .feed import IngvCentroNazionaleTerremotiQuakeMLFeed
 
 
 class IngvCentroNazionaleTerremotiQuakeMLFeedManager(QuakeMLFeedManagerBase):
+    """INGV Centro Nazionale Terremoti (Earthquakes) feed manager."""
+
     def __init__(
         self,
         websession: ClientSession,

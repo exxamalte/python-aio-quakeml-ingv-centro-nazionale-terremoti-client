@@ -1,4 +1,6 @@
 """INGV Centro Nazionale Terremoti (Earthquakes) QuakeML feed."""
+from __future__ import annotations
+
 from typing import Dict, Tuple
 
 from aio_quakeml_client.feed import QuakeMLFeed

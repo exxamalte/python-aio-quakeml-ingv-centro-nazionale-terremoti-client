@@ -8,7 +8,6 @@ CUSTOM_NAMESPACES = {
 }
 
 DEFAULT_STARTTIME_DELTA = timedelta(hours=24)
-
-URL_DEFAULT = "https://webservices.ingv.it/fdsnws/event/1/query"
+DEFAULT_URL = "https://webservices.ingv.it/fdsnws/event/1/query"
 
 XML_TAG_INGV_ID_LOCATOR = "ingv:id_locator"

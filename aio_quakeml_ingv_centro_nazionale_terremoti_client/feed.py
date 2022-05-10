@@ -9,7 +9,7 @@ from aio_quakeml_client.feed import QuakeMLFeed
 from aio_quakeml_client.xml_parser.event import Event
 from aiohttp import ClientSession
 
-from .consts import CUSTOM_NAMESPACES, DEFAULT_STARTTIME_DELTA, URL_DEFAULT
+from .consts import CUSTOM_NAMESPACES, DEFAULT_STARTTIME_DELTA, DEFAULT_URL
 from .feed_entry import IngvCentroNazionaleTerremotiFeedQuakeMLEntry
 
 
@@ -38,7 +38,7 @@ class IngvCentroNazionaleTerremotiQuakeMLFeed(
         return "<{}(home={}, url={}, radius={}, magnitude={})>".format(
             self.__class__.__name__,
             self._home_coordinates,
-            URL_DEFAULT,
+            DEFAULT_URL,
             self._dynamic_filter_radius,
             self._dynamic_filter_minimum_magnitude,
         )
@@ -68,6 +68,6 @@ class IngvCentroNazionaleTerremotiQuakeMLFeed(
             url_parameters["starttime"] = starttime.strftime("%Y-%m-%dT%H:%M:%S")
         # Build URL.
         if len(url_parameters) > 0:
-            return URL_DEFAULT + "?" + urllib.parse.urlencode(url_parameters, safe=":")
+            return DEFAULT_URL + "?" + urllib.parse.urlencode(url_parameters, safe=":")
         else:
-            return URL_DEFAULT
+            return DEFAULT_URL

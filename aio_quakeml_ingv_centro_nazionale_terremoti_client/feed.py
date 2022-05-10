@@ -1,19 +1,14 @@
 """INGV Centro Nazionale Terremoti (Earthquakes) QuakeML feed."""
 from __future__ import annotations
 
+import urllib.parse
 from typing import Dict, Tuple
 
 from aio_quakeml_client.feed import QuakeMLFeed
 from aio_quakeml_client.xml_parser.event import Event
 from aiohttp import ClientSession
 
-from .consts import (
-    CUSTOM_NAMESPACES,
-    URL_DEFAULT,
-    URL_PATTERN_MAGNITUDE,
-    URL_PATTERN_RADIUS,
-    URL_PATTERN_RADIUS_MAGNITUDE,
-)
+from .consts import CUSTOM_NAMESPACES, URL_DEFAULT
 from .feed_entry import IngvCentroNazionaleTerremotiFeedQuakeMLEntry
 
 
@@ -55,22 +50,15 @@ class IngvCentroNazionaleTerremotiQuakeMLFeed(
 
     def _fetch_url(self):
         """Dynamically construct URL based on parameters."""
-        if self._dynamic_filter_radius and self._dynamic_filter_minimum_magnitude:
-            return URL_PATTERN_RADIUS_MAGNITUDE.format(
-                self._home_coordinates[0],
-                self._home_coordinates[1],
-                self._dynamic_filter_radius,
-                self._dynamic_filter_minimum_magnitude,
-            )
+        url_parameters = {}
+        if self._dynamic_filter_radius:
+            url_parameters["lat"] = self._home_coordinates[0]
+            url_parameters["lon"] = self._home_coordinates[1]
+            url_parameters["maxradiuskm"] = self._dynamic_filter_radius
+        if self._dynamic_filter_minimum_magnitude:
+            url_parameters["minmag"] = self._dynamic_filter_minimum_magnitude
+        # Build URL.
+        if len(url_parameters) > 0:
+            return URL_DEFAULT + "?" + urllib.parse.urlencode(url_parameters)
         else:
-            if self._dynamic_filter_radius:
-                return URL_PATTERN_RADIUS.format(
-                    self._home_coordinates[0],
-                    self._home_coordinates[1],
-                    self._dynamic_filter_radius,
-                )
-            if self._dynamic_filter_minimum_magnitude:
-                return URL_PATTERN_MAGNITUDE.format(
-                    self._dynamic_filter_minimum_magnitude
-                )
-        return URL_DEFAULT
+            return URL_DEFAULT

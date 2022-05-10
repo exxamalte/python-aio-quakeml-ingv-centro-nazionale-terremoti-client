@@ -6,10 +6,5 @@ CUSTOM_NAMESPACES = {
 }
 
 URL_DEFAULT = "https://webservices.ingv.it/fdsnws/event/1/query"
-URL_PATTERN_RADIUS = (
-    "https://webservices.ingv.it/fdsnws/event/1/query?lat={}&lon={}&maxradiuskm={}"
-)
-URL_PATTERN_MAGNITUDE = "https://webservices.ingv.it/fdsnws/event/1/query?minmag={}"
-URL_PATTERN_RADIUS_MAGNITUDE = "https://webservices.ingv.it/fdsnws/event/1/query?lat={}&lon={}&maxradiuskm={}&minmag={}"
 
 XML_TAG_INGV_ID_LOCATOR = "ingv:id_locator"

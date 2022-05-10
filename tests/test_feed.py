@@ -109,6 +109,24 @@ async def test_update_ok_with_starttime_delta(aresponses, event_loop):
 
 @pytest.mark.asyncio
 @freeze_time("2022-05-10 10:15:00")
+async def test_update_ok_with_empty_starttime_delta(aresponses, event_loop):
+    """Test updating feed is ok with custom starttime delta."""
+    home_coordinates = (42.0, 13.0)
+    async with aiohttp.ClientSession(loop=event_loop) as websession:
+
+        feed = IngvCentroNazionaleTerremotiQuakeMLFeed(
+            websession, home_coordinates, starttime_delta=None
+        )
+        assert (
+            repr(feed) == "<IngvCentroNazionaleTerremotiQuakeMLFeed(home=(42.0, 13.0), "
+            "url=https://webservices.ingv.it/fdsnws/event/1/query, "
+            "radius=None, magnitude=None)>"
+        )
+        assert feed._fetch_url() == "https://webservices.ingv.it/fdsnws/event/1/query"
+
+
+@pytest.mark.asyncio
+@freeze_time("2022-05-10 10:15:00")
 async def test_update_ok_with_radius_filter(aresponses, event_loop):
     """Test updating feed is ok with radius filter."""
     home_coordinates = (42.0, 13.0)

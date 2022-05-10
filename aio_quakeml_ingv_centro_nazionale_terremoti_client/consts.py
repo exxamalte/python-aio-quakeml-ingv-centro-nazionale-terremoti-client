@@ -1,9 +1,13 @@
 """Constants for feeds and feed entries."""
 from __future__ import annotations
 
+from datetime import timedelta
+
 CUSTOM_NAMESPACES = {
     "http://webservices.ingv.it/fdsnws/event/1": "ingv",
 }
+
+DEFAULT_STARTTIME_DELTA = timedelta(hours=24)
 
 URL_DEFAULT = "https://webservices.ingv.it/fdsnws/event/1/query"
 

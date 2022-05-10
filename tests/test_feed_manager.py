@@ -1,5 +1,5 @@
 """Test for the INGV Centro Nazionale Terremoti (Earthquakes) QuakeML feed manager."""
-import datetime
+from datetime import datetime
 
 import aiohttp
 import pytest
@@ -20,7 +20,7 @@ async def test_feed_manager(aresponses, event_loop):
         "/fdsnws/event/1/query",
         "get",
         aresponses.Response(text=load_fixture("ingv-terremoti-3.xml"), status=200),
-        match_querystring=True,
+        match_querystring=False,
     )
 
     async with aiohttp.ClientSession(loop=event_loop) as websession:
@@ -59,7 +59,7 @@ async def test_feed_manager(aresponses, event_loop):
         entries = feed_manager.feed_entries
         assert entries is not None
         assert len(entries) == 4
-        assert feed_manager.last_timestamp == datetime.datetime(
+        assert feed_manager.last_timestamp == datetime(
             2022, 3, 5, 22, 54, 12, tzinfo=pytz.utc
         )
         assert len(generated_entity_external_ids) == 4

@@ -63,7 +63,11 @@ class IngvCentroNazionaleTerremotiQuakeMLFeed(
         if self._dynamic_filter_minimum_magnitude:
             url_parameters["minmag"] = self._dynamic_filter_minimum_magnitude
         if self._starttime_delta:
-            starttime = datetime.utcnow() - self._starttime_delta
+            # Calculate start time based on now but normalised to the last full minute.
+            starttime = (
+                datetime.utcnow().replace(second=0, microsecond=0)
+                - self._starttime_delta
+            )
             # Format required: YYYY-MM-DDThh:mm:ss
             url_parameters["starttime"] = starttime.strftime("%Y-%m-%dT%H:%M:%S")
         # Build URL.

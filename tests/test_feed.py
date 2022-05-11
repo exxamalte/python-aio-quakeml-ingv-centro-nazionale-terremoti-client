@@ -87,7 +87,7 @@ async def test_update_ok(aresponses, event_loop):
 
 
 @pytest.mark.asyncio
-@freeze_time("2022-05-10 10:15:00")
+@freeze_time("2022-05-10 10:15:08")
 async def test_update_ok_with_starttime_delta(aresponses, event_loop):
     """Test updating feed is ok with custom starttime delta."""
     home_coordinates = (42.0, 13.0)
@@ -108,7 +108,6 @@ async def test_update_ok_with_starttime_delta(aresponses, event_loop):
 
 
 @pytest.mark.asyncio
-@freeze_time("2022-05-10 10:15:00")
 async def test_update_ok_with_empty_starttime_delta(aresponses, event_loop):
     """Test updating feed is ok with custom starttime delta."""
     home_coordinates = (42.0, 13.0)
@@ -126,7 +125,7 @@ async def test_update_ok_with_empty_starttime_delta(aresponses, event_loop):
 
 
 @pytest.mark.asyncio
-@freeze_time("2022-05-10 10:15:00")
+@freeze_time("2022-05-10 10:15:25")
 async def test_update_ok_with_radius_filter(aresponses, event_loop):
     """Test updating feed is ok with radius filter."""
     home_coordinates = (42.0, 13.0)
@@ -147,7 +146,7 @@ async def test_update_ok_with_radius_filter(aresponses, event_loop):
 
 
 @pytest.mark.asyncio
-@freeze_time("2022-05-10 10:15:00")
+@freeze_time("2022-05-10 10:15:50")
 async def test_update_ok_with_minimum_magnitude_filter(aresponses, event_loop):
     """Test updating feed is ok with minimum magnitude filter."""
     home_coordinates = (42.0, 13.0)
@@ -168,7 +167,7 @@ async def test_update_ok_with_minimum_magnitude_filter(aresponses, event_loop):
 
 
 @pytest.mark.asyncio
-@freeze_time("2022-05-10 10:15:00")
+@freeze_time("2022-05-10 10:15:40")
 async def test_update_ok_with_radius_and_minimum_magnitude_filter(
     aresponses, event_loop
 ):

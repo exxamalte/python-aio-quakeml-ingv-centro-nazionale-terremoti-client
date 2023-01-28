@@ -1,5 +1,11 @@
 # Changes
 
+## 0.3 (28/01/2023)
+* Added Python 3.11 support.
+* Removed deprecated asynctest dependency.
+* Bumped aio_quakeml_client to v0.6.
+* Bumped library versions: black.
+
 ## 0.2 (11/05/2022)
 * Fetching events from the last 24 hours now by default.
 * Time delta configurable to retrieve more (older) or fewer (recent) events.

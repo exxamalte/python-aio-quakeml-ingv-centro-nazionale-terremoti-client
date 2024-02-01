@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 from datetime import timedelta
-from typing import Awaitable, Callable, Tuple
+from typing import Awaitable, Callable
 
 from aio_quakeml_client.feed_manager import QuakeMLFeedManagerBase
 from aio_quakeml_client.status_update import StatusUpdate
@@ -18,7 +18,7 @@ class IngvCentroNazionaleTerremotiQuakeMLFeedManager(QuakeMLFeedManagerBase):
     def __init__(
         self,
         websession: ClientSession,
-        coordinates: Tuple[float, float],
+        coordinates: tuple[float, float],
         filter_radius: float = None,
         filter_minimum_magnitude: float = None,
         starttime_delta: timedelta = DEFAULT_STARTTIME_DELTA,

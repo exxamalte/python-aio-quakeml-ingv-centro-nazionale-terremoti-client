@@ -3,7 +3,6 @@ from __future__ import annotations
 
 import urllib.parse
 from datetime import datetime, timedelta
-from typing import Dict, Tuple
 
 from aio_quakeml_client.feed import QuakeMLFeed
 from aio_quakeml_client.xml_parser.event import Event
@@ -21,7 +20,7 @@ class IngvCentroNazionaleTerremotiQuakeMLFeed(
     def __init__(
         self,
         websession: ClientSession,
-        home_coordinates: Tuple[float, float],
+        home_coordinates: tuple[float, float],
         filter_radius: float = None,
         filter_minimum_magnitude: float = None,
         starttime_delta: timedelta = DEFAULT_STARTTIME_DELTA,
@@ -44,12 +43,12 @@ class IngvCentroNazionaleTerremotiQuakeMLFeed(
         )
 
     def _new_entry(
-        self, home_coordinates: Tuple[float, float], event: Event, global_data: Dict
+        self, home_coordinates: tuple[float, float], event: Event, global_data: dict
     ) -> IngvCentroNazionaleTerremotiFeedQuakeMLEntry:
         """Generate a new entry."""
         return IngvCentroNazionaleTerremotiFeedQuakeMLEntry(home_coordinates, event)
 
-    def _additional_namespaces(self) -> Dict | None:
+    def _additional_namespaces(self) -> dict | None:
         """Return additional XML namespaces."""
         return CUSTOM_NAMESPACES
 

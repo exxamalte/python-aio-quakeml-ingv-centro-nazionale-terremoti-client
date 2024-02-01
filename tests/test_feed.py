@@ -1,5 +1,7 @@
 """Test for the INGV Centro Nazionale Terremoti (Earthquakes) QuakeML feed."""
+import asyncio
 from datetime import datetime, timedelta, timezone
+from http import HTTPStatus
 
 import aiohttp
 import pytest
@@ -13,19 +15,17 @@ from tests.utils import load_fixture
 
 
 @pytest.mark.asyncio
-async def test_update_ok(aresponses, event_loop):
+@freeze_time("2024-01-31 11:12:13")
+async def test_update_ok(mock_aioresponse):
     """Test updating feed is ok."""
     home_coordinates = (42.0, 13.0)
-    aresponses.add(
-        "webservices.ingv.it",
-        "/fdsnws/event/1/query",
-        "get",
-        aresponses.Response(text=load_fixture("ingv-terremoti-1.xml"), status=200),
-        match_querystring=False,
+    mock_aioresponse.get(
+        "https://webservices.ingv.it/fdsnws/event/1/query?starttime=2024-01-30T11%253A12%253A00",
+        status=HTTPStatus.OK,
+        body=load_fixture("ingv-terremoti-1.xml"),
     )
 
-    async with aiohttp.ClientSession(loop=event_loop) as websession:
-
+    async with aiohttp.ClientSession(loop=asyncio.get_running_loop()) as websession:
         feed = IngvCentroNazionaleTerremotiQuakeMLFeed(websession, home_coordinates)
         assert (
             repr(feed) == "<IngvCentroNazionaleTerremotiQuakeMLFeed(home=(42.0, 13.0), "
@@ -88,11 +88,10 @@ async def test_update_ok(aresponses, event_loop):
 
 @pytest.mark.asyncio
 @freeze_time("2022-05-10 10:15:08")
-async def test_update_ok_with_starttime_delta(aresponses, event_loop):
+async def test_update_ok_with_starttime_delta():
     """Test updating feed is ok with custom starttime delta."""
     home_coordinates = (42.0, 13.0)
-    async with aiohttp.ClientSession(loop=event_loop) as websession:
-
+    async with aiohttp.ClientSession(loop=asyncio.get_running_loop()) as websession:
         feed = IngvCentroNazionaleTerremotiQuakeMLFeed(
             websession, home_coordinates, starttime_delta=timedelta(minutes=5)
         )
@@ -108,11 +107,10 @@ async def test_update_ok_with_starttime_delta(aresponses, event_loop):
 
 
 @pytest.mark.asyncio
-async def test_update_ok_with_empty_starttime_delta(aresponses, event_loop):
+async def test_update_ok_with_empty_starttime_delta():
     """Test updating feed is ok with custom starttime delta."""
     home_coordinates = (42.0, 13.0)
-    async with aiohttp.ClientSession(loop=event_loop) as websession:
-
+    async with aiohttp.ClientSession(loop=asyncio.get_running_loop()) as websession:
         feed = IngvCentroNazionaleTerremotiQuakeMLFeed(
             websession, home_coordinates, starttime_delta=None
         )
@@ -126,11 +124,10 @@ async def test_update_ok_with_empty_starttime_delta(aresponses, event_loop):
 
 @pytest.mark.asyncio
 @freeze_time("2022-05-10 10:15:25")
-async def test_update_ok_with_radius_filter(aresponses, event_loop):
+async def test_update_ok_with_radius_filter():
     """Test updating feed is ok with radius filter."""
     home_coordinates = (42.0, 13.0)
-    async with aiohttp.ClientSession(loop=event_loop) as websession:
-
+    async with aiohttp.ClientSession(loop=asyncio.get_running_loop()) as websession:
         feed = IngvCentroNazionaleTerremotiQuakeMLFeed(
             websession, home_coordinates, filter_radius=100.0
         )
@@ -147,11 +144,10 @@ async def test_update_ok_with_radius_filter(aresponses, event_loop):
 
 @pytest.mark.asyncio
 @freeze_time("2022-05-10 10:15:50")
-async def test_update_ok_with_minimum_magnitude_filter(aresponses, event_loop):
+async def test_update_ok_with_minimum_magnitude_filter():
     """Test updating feed is ok with minimum magnitude filter."""
     home_coordinates = (42.0, 13.0)
-    async with aiohttp.ClientSession(loop=event_loop) as websession:
-
+    async with aiohttp.ClientSession(loop=asyncio.get_running_loop()) as websession:
         feed = IngvCentroNazionaleTerremotiQuakeMLFeed(
             websession, home_coordinates, filter_minimum_magnitude=3.0
         )
@@ -168,13 +164,10 @@ async def test_update_ok_with_minimum_magnitude_filter(aresponses, event_loop):
 
 @pytest.mark.asyncio
 @freeze_time("2022-05-10 10:15:40")
-async def test_update_ok_with_radius_and_minimum_magnitude_filter(
-    aresponses, event_loop
-):
+async def test_update_ok_with_radius_and_minimum_magnitude_filter():
     """Test updating feed is ok with radius and minimum magnitude filter."""
     home_coordinates = (42.0, 13.0)
-    async with aiohttp.ClientSession(loop=event_loop) as websession:
-
+    async with aiohttp.ClientSession(loop=asyncio.get_running_loop()) as websession:
         feed = IngvCentroNazionaleTerremotiQuakeMLFeed(
             websession,
             home_coordinates,
@@ -193,19 +186,17 @@ async def test_update_ok_with_radius_and_minimum_magnitude_filter(
 
 
 @pytest.mark.asyncio
-async def test_empty_feed(aresponses, event_loop):
+@freeze_time("2024-01-31 11:12:13")
+async def test_empty_feed(mock_aioresponse):
     """Test updating feed is ok when feed does not contain entries with coordinates."""
     home_coordinates = (42.0, 13.0)
-    aresponses.add(
-        "webservices.ingv.it",
-        "/fdsnws/event/1/query",
-        "get",
-        aresponses.Response(text=load_fixture("ingv-terremoti-2.xml"), status=200),
-        match_querystring=False,
+    mock_aioresponse.get(
+        "https://webservices.ingv.it/fdsnws/event/1/query?starttime=2024-01-30T11%253A12%253A00",
+        status=HTTPStatus.OK,
+        body=load_fixture("ingv-terremoti-2.xml"),
     )
 
-    async with aiohttp.ClientSession(loop=event_loop) as websession:
-
+    async with aiohttp.ClientSession(loop=asyncio.get_running_loop()) as websession:
         feed = IngvCentroNazionaleTerremotiQuakeMLFeed(websession, home_coordinates)
         assert (
             repr(feed) == "<IngvCentroNazionaleTerremotiQuakeMLFeed(home=(42.0, 13.0), "
@@ -220,18 +211,18 @@ async def test_empty_feed(aresponses, event_loop):
 
 
 @pytest.mark.asyncio
-async def test_update_not_xml(aresponses, event_loop):
+@freeze_time("2024-01-31 11:12:13")
+async def test_update_not_xml(mock_aioresponse):
     """Test updating feed where returned payload is not XML."""
     home_coordinates = (42.0, 13.0)
     not_xml = "\x00\x00\x00"
-    aresponses.add(
-        "webservices.ingv.it",
-        "/fdsnws/event/1/query",
-        "get",
-        aresponses.Response(text=not_xml, status=200),
+    mock_aioresponse.get(
+        "https://webservices.ingv.it/fdsnws/event/1/query?starttime=2024-01-30T11%253A12%253A00",
+        status=HTTPStatus.OK,
+        body=not_xml,
     )
 
-    async with aiohttp.ClientSession(loop=event_loop) as websession:
+    async with aiohttp.ClientSession(loop=asyncio.get_running_loop()) as websession:
         feed = IngvCentroNazionaleTerremotiQuakeMLFeed(websession, home_coordinates)
         assert (
             repr(feed) == "<IngvCentroNazionaleTerremotiQuakeMLFeed(home=(42.0, 13.0), "

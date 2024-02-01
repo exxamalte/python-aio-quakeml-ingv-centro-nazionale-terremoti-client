@@ -4,3 +4,4 @@ pytest-xdist
 pytest-cov
 mock
 aioresponses
+freezegun

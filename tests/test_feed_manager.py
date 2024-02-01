@@ -1,9 +1,12 @@
 """Test for the INGV Centro Nazionale Terremoti (Earthquakes) QuakeML feed manager."""
+import asyncio
 from datetime import datetime
+from http import HTTPStatus
 
 import aiohttp
 import pytest
 import pytz
+from freezegun import freeze_time
 
 from aio_quakeml_ingv_centro_nazionale_terremoti_client import (
     IngvCentroNazionaleTerremotiQuakeMLFeedManager,
@@ -12,19 +15,17 @@ from tests.utils import load_fixture
 
 
 @pytest.mark.asyncio
-async def test_feed_manager(aresponses, event_loop):
+@freeze_time("2024-01-31 11:12:13")
+async def test_feed_manager(mock_aioresponse):
     """Test the feed manager."""
     home_coordinates = (42.0, 13.0)
-    aresponses.add(
-        "webservices.ingv.it",
-        "/fdsnws/event/1/query",
-        "get",
-        aresponses.Response(text=load_fixture("ingv-terremoti-3.xml"), status=200),
-        match_querystring=False,
+    mock_aioresponse.get(
+        "https://webservices.ingv.it/fdsnws/event/1/query?starttime=2024-01-30T11%253A12%253A00",
+        status=HTTPStatus.OK,
+        body=load_fixture("ingv-terremoti-3.xml"),
     )
 
-    async with aiohttp.ClientSession(loop=event_loop) as websession:
-
+    async with aiohttp.ClientSession(loop=asyncio.get_running_loop()) as websession:
         # This will just record calls and keep track of external ids.
         generated_entity_external_ids = []
         updated_entity_external_ids = []

@@ -12,7 +12,7 @@ DESCRIPTION = (
 URL = "https://github.com/exxamalte/python-aio-quakeml-ingv-centro-nazionale-terremoti-client"
 
 REQUIRES = [
-    "aio_quakeml_client>=0.6",
+    "aio_quakeml_client>=0.7",
 ]
 
 

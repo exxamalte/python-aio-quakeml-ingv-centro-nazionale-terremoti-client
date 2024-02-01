@@ -1,0 +1,6 @@
+pytest-asyncio
+pytest-timeout
+pytest-xdist
+pytest-cov
+mock
+aioresponses

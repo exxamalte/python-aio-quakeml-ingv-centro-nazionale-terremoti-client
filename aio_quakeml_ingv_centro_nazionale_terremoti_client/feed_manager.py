@@ -19,13 +19,13 @@ class IngvCentroNazionaleTerremotiQuakeMLFeedManager(QuakeMLFeedManagerBase):
         self,
         websession: ClientSession,
         coordinates: tuple[float, float],
-        filter_radius: float = None,
-        filter_minimum_magnitude: float = None,
+        filter_radius: float | None = None,
+        filter_minimum_magnitude: float | None = None,
         starttime_delta: timedelta = DEFAULT_STARTTIME_DELTA,
-        generate_async_callback: Callable[[str], Awaitable[None]] = None,
-        update_async_callback: Callable[[str], Awaitable[None]] = None,
-        remove_async_callback: Callable[[str], Awaitable[None]] = None,
-        status_async_callback: Callable[[StatusUpdate], Awaitable[None]] = None,
+        generate_async_callback: Callable[[str], Awaitable[None]] | None = None,
+        update_async_callback: Callable[[str], Awaitable[None]] | None = None,
+        remove_async_callback: Callable[[str], Awaitable[None]] | None = None,
+        status_async_callback: Callable[[StatusUpdate], Awaitable[None]] | None = None,
     ):
         """Initialize the INGV Centro Nazionale Terremoti Feed Manager."""
         feed = IngvCentroNazionaleTerremotiQuakeMLFeed(

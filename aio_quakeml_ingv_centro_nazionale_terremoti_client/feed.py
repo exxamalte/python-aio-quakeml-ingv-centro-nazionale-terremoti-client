@@ -21,16 +21,16 @@ class IngvCentroNazionaleTerremotiQuakeMLFeed(
         self,
         websession: ClientSession,
         home_coordinates: tuple[float, float],
-        filter_radius: float = None,
-        filter_minimum_magnitude: float = None,
+        filter_radius: float | None = None,
+        filter_minimum_magnitude: float | None = None,
         starttime_delta: timedelta = DEFAULT_STARTTIME_DELTA,
     ):
         """Initialise this service."""
         super().__init__(websession, home_coordinates)
         # Store radius and minimum magnitude separately to use these in the URL instead of through post filter feed entries.
-        self._dynamic_filter_radius = filter_radius
-        self._dynamic_filter_minimum_magnitude = filter_minimum_magnitude
-        self._starttime_delta = starttime_delta
+        self._dynamic_filter_radius: float | None = filter_radius
+        self._dynamic_filter_minimum_magnitude: float | None = filter_minimum_magnitude
+        self._starttime_delta: timedelta = starttime_delta
 
     def __repr__(self):
         """Return string representation of this feed."""
@@ -52,9 +52,9 @@ class IngvCentroNazionaleTerremotiQuakeMLFeed(
         """Return additional XML namespaces."""
         return CUSTOM_NAMESPACES
 
-    def _fetch_url(self):
+    def _fetch_url(self) -> str | None:
         """Dynamically construct URL based on parameters."""
-        url_parameters = {}
+        url_parameters: dict = {}
         if self._dynamic_filter_radius:
             url_parameters["lat"] = self._home_coordinates[0]
             url_parameters["lon"] = self._home_coordinates[1]

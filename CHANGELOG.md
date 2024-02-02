@@ -1,5 +1,12 @@
 # Changes
 
+## 0.4 (02/02/2024)
+* Added Python 3.12 support.
+* Bumped aio_quakeml_client to v0.7.
+* Bumped library versions: black, flake8, isort.
+* Migrated to pytest.
+* Code quality improvements.
+
 ## 0.3 (28/01/2023)
 * Added Python 3.11 support.
 * Removed deprecated asynctest dependency.

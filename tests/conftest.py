@@ -1,6 +1,7 @@
 """Configuration for tests."""
-import pytest
+
 from aioresponses import aioresponses
+import pytest
 
 
 @pytest.fixture

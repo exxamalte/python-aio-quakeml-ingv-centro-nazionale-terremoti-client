@@ -1,4 +1,5 @@
 """INGV Centro Nazionale Terremoti (Earthquakes) feed entry."""
+
 from __future__ import annotations
 
 from aio_quakeml_client.feed_entry import FeedEntry

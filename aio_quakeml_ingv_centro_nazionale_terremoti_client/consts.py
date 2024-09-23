@@ -1,4 +1,5 @@
 """Constants for feeds and feed entries."""
+
 from __future__ import annotations
 
 from datetime import timedelta

@@ -1,4 +1,5 @@
 """Tests for the INGV Centro Nazionale Terremoti (Earthquakes) QuakeML feed general setup."""
+
 from aio_quakeml_ingv_centro_nazionale_terremoti_client import __version__
 
 

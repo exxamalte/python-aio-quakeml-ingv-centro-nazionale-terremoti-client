@@ -1,12 +1,13 @@
 """Test for the INGV Centro Nazionale Terremoti (Earthquakes) QuakeML feed manager."""
+
 import asyncio
 from datetime import datetime
 from http import HTTPStatus
 
 import aiohttp
+from freezegun import freeze_time
 import pytest
 import pytz
-from freezegun import freeze_time
 
 from aio_quakeml_ingv_centro_nazionale_terremoti_client import (
     IngvCentroNazionaleTerremotiQuakeMLFeedManager,

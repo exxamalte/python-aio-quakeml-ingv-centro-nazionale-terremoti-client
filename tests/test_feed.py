@@ -1,12 +1,13 @@
 """Test for the INGV Centro Nazionale Terremoti (Earthquakes) QuakeML feed."""
+
 import asyncio
 from datetime import datetime, timedelta, timezone
 from http import HTTPStatus
 
-import aiohttp
-import pytest
 from aio_quakeml_client.consts import UPDATE_OK, UPDATE_OK_NO_DATA
+import aiohttp
 from freezegun import freeze_time
+import pytest
 
 from aio_quakeml_ingv_centro_nazionale_terremoti_client.feed import (
     IngvCentroNazionaleTerremotiQuakeMLFeed,
@@ -101,7 +102,7 @@ async def test_update_ok_with_starttime_delta():
             "radius=None, magnitude=None)>"
         )
         assert (
-            feed._fetch_url()
+            feed._fetch_url()  # noqa: SLF001
             == "https://webservices.ingv.it/fdsnws/event/1/query?starttime=2022-05-10T10:10:00"
         )
 
@@ -119,7 +120,7 @@ async def test_update_ok_with_empty_starttime_delta():
             "url=https://webservices.ingv.it/fdsnws/event/1/query, "
             "radius=None, magnitude=None)>"
         )
-        assert feed._fetch_url() == "https://webservices.ingv.it/fdsnws/event/1/query"
+        assert feed._fetch_url() == "https://webservices.ingv.it/fdsnws/event/1/query"  # noqa: SLF001
 
 
 @pytest.mark.asyncio
@@ -137,7 +138,7 @@ async def test_update_ok_with_radius_filter():
             "radius=100.0, magnitude=None)>"
         )
         assert (
-            feed._fetch_url()
+            feed._fetch_url()  # noqa: SLF001
             == "https://webservices.ingv.it/fdsnws/event/1/query?lat=42.0&lon=13.0&maxradiuskm=100.0&starttime=2022-05-09T10:15:00"
         )
 
@@ -157,7 +158,7 @@ async def test_update_ok_with_minimum_magnitude_filter():
             "radius=None, magnitude=3.0)>"
         )
         assert (
-            feed._fetch_url()
+            feed._fetch_url()  # noqa: SLF001
             == "https://webservices.ingv.it/fdsnws/event/1/query?minmag=3.0&starttime=2022-05-09T10:15:00"
         )
 
@@ -180,7 +181,7 @@ async def test_update_ok_with_radius_and_minimum_magnitude_filter():
             "radius=100.0, magnitude=3.0)>"
         )
         assert (
-            feed._fetch_url()
+            feed._fetch_url()  # noqa: SLF001
             == "https://webservices.ingv.it/fdsnws/event/1/query?lat=42.0&lon=13.0&maxradiuskm=100.0&minmag=3.0&starttime=2022-05-09T10:15:00"
         )
 

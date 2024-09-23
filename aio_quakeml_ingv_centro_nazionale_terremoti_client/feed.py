@@ -1,8 +1,9 @@
 """INGV Centro Nazionale Terremoti (Earthquakes) QuakeML feed."""
+
 from __future__ import annotations
 
+from datetime import datetime, timedelta, timezone
 import urllib.parse
-from datetime import datetime, timedelta
 
 from aio_quakeml_client.feed import QuakeMLFeed
 from aio_quakeml_client.xml_parser.event import Event
@@ -34,13 +35,7 @@ class IngvCentroNazionaleTerremotiQuakeMLFeed(
 
     def __repr__(self):
         """Return string representation of this feed."""
-        return "<{}(home={}, url={}, radius={}, magnitude={})>".format(
-            self.__class__.__name__,
-            self._home_coordinates,
-            DEFAULT_URL,
-            self._dynamic_filter_radius,
-            self._dynamic_filter_minimum_magnitude,
-        )
+        return f"<{self.__class__.__name__}(home={self._home_coordinates}, url={DEFAULT_URL}, radius={self._dynamic_filter_radius}, magnitude={self._dynamic_filter_minimum_magnitude})>"
 
     def _new_entry(
         self, home_coordinates: tuple[float, float], event: Event, global_data: dict
@@ -64,7 +59,7 @@ class IngvCentroNazionaleTerremotiQuakeMLFeed(
         if self._starttime_delta:
             # Calculate start time based on now but normalised to the last full minute.
             starttime = (
-                datetime.utcnow().replace(second=0, microsecond=0)
+                datetime.now(tz=timezone.utc).replace(second=0, microsecond=0)
                 - self._starttime_delta
             )
             # Format required: YYYY-MM-DDThh:mm:ss
@@ -72,5 +67,4 @@ class IngvCentroNazionaleTerremotiQuakeMLFeed(
         # Build URL.
         if len(url_parameters) > 0:
             return DEFAULT_URL + "?" + urllib.parse.urlencode(url_parameters, safe=":")
-        else:
-            return DEFAULT_URL
+        return DEFAULT_URL

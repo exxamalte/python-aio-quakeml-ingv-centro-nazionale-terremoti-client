@@ -17,11 +17,11 @@ from tests.utils import load_fixture
 
 @pytest.mark.asyncio
 @freeze_time("2024-01-31 11:12:13")
-async def test_feed_manager(mock_aioresponse):
+async def test_feed_manager(mock_aiointercept):
     """Test the feed manager."""
     home_coordinates = (42.0, 13.0)
-    mock_aioresponse.get(
-        "https://webservices.ingv.it/fdsnws/event/1/query?starttime=2024-01-30T11%253A12%253A00",
+    mock_aiointercept.get(
+        "https://webservices.ingv.it/fdsnws/event/1/query?starttime=2024-01-30T11:12:00",
         status=HTTPStatus.OK,
         body=load_fixture("ingv-terremoti-3.xml"),
     )

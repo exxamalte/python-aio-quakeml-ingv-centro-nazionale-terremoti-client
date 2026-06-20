@@ -3,5 +3,5 @@ pytest-timeout
 pytest-xdist
 pytest-cov
 mock
-aioresponses
+aiointercept
 freezegun

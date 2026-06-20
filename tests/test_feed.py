@@ -17,11 +17,11 @@ from tests.utils import load_fixture
 
 @pytest.mark.asyncio
 @freeze_time("2024-01-31 11:12:13")
-async def test_update_ok(mock_aioresponse):
+async def test_update_ok(mock_aiointercept):
     """Test updating feed is ok."""
     home_coordinates = (42.0, 13.0)
-    mock_aioresponse.get(
-        "https://webservices.ingv.it/fdsnws/event/1/query?starttime=2024-01-30T11%253A12%253A00",
+    mock_aiointercept.get(
+        "https://webservices.ingv.it/fdsnws/event/1/query?starttime=2024-01-30T11:12:00",
         status=HTTPStatus.OK,
         body=load_fixture("ingv-terremoti-1.xml"),
     )
@@ -188,11 +188,11 @@ async def test_update_ok_with_radius_and_minimum_magnitude_filter():
 
 @pytest.mark.asyncio
 @freeze_time("2024-01-31 11:12:13")
-async def test_empty_feed(mock_aioresponse):
+async def test_empty_feed(mock_aiointercept):
     """Test updating feed is ok when feed does not contain entries with coordinates."""
     home_coordinates = (42.0, 13.0)
-    mock_aioresponse.get(
-        "https://webservices.ingv.it/fdsnws/event/1/query?starttime=2024-01-30T11%253A12%253A00",
+    mock_aiointercept.get(
+        "https://webservices.ingv.it/fdsnws/event/1/query?starttime=2024-01-30T11:12:00",
         status=HTTPStatus.OK,
         body=load_fixture("ingv-terremoti-2.xml"),
     )
@@ -213,12 +213,12 @@ async def test_empty_feed(mock_aioresponse):
 
 @pytest.mark.asyncio
 @freeze_time("2024-01-31 11:12:13")
-async def test_update_not_xml(mock_aioresponse):
+async def test_update_not_xml(mock_aiointercept):
     """Test updating feed where returned payload is not XML."""
     home_coordinates = (42.0, 13.0)
     not_xml = "\x00\x00\x00"
-    mock_aioresponse.get(
-        "https://webservices.ingv.it/fdsnws/event/1/query?starttime=2024-01-30T11%253A12%253A00",
+    mock_aiointercept.get(
+        "https://webservices.ingv.it/fdsnws/event/1/query?starttime=2024-01-30T11:12:00",
         status=HTTPStatus.OK,
         body=not_xml,
     )

@@ -1,3 +1,53 @@
+[build-system]
+requires = [
+    "setuptools",
+    "wheel"
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aio_quakeml_ingv_centro_nazionale_terremoti_client"
+version  = "0.4"
+requires-python = ">= 3.11"
+authors = [
+  {name = "Malte Franken", email = "coding@subspace.de"},
+]
+description = "An async INGV Centro Nazionale Terremoti (Earthquakes) QuakeML client library."
+readme = "README.md"
+license = {file = "LICENSE"}
+keywords = ["homeassistant", "quakeml", "ingv", "earthquakes"]
+classifiers = [
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "License :: OSI Approved :: Apache Software License",
+  "Operating System :: OS Independent",
+  "Development Status :: 5 - Production/Stable",
+]
+dependencies = [
+    "aio_quakeml_client>=0.7",
+]
+
+[project.optional-dependencies]
+tests = [
+    "pytest-asyncio",
+    "pytest-timeout",
+    "pytest-xdist",
+    "pytest-cov",
+    "mock",
+    "aiointercept",
+    "freezegun"
+]
+
+[project.urls]
+Repository = "https://github.com/exxamalte/python-aio-quakeml-ingv-centro-nazionale-terremoti-client"
+Issues = "https://github.com/exxamalte/python-aio-quakeml-ingv-centro-nazionale-terremoti-client/issues"
+Changelog = "https://github.com/exxamalte/python-aio-quakeml-ingv-centro-nazionale-terremoti-client/blob/main/CHANGELOG.md"
+
+[tool.setuptools.packages.find]
+include = ["aio_quakeml_ingv_centro_nazionale_terremoti_client*"]
+
 [tool.ruff.lint]
 select = [
     "A001", # Variable {name} is shadowing a Python builtin

@@ -1,5 +1,12 @@
 # Changes
 
+## 2026.6.0 (20/06/2026)
+* Added Python 3.13 and 3.14 support.
+* Removed Python 3.9 and 3.10 support.
+* Bumped aio_quakeml_client to 2026.6.0.
+* Code quality improvements.
+* Changing to date-based versioning
+
 ## 0.4 (02/02/2024)
 * Added Python 3.12 support.
 * Bumped aio_quakeml_client to v0.7.
